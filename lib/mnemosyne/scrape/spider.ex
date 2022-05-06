@@ -10,7 +10,9 @@ defmodule Spider do
   @impl Crawly.Spider
   def init(options) do
 	# Reading start urls from options passed from the main module
-	[start_urls: Keyword.get(options, :urls)]
+	IO.inspect("Spider init!!")
+	IO.inspect(options)
+	[start_urls: Keyword.get(options, :urls), test_param: "test param"]
   end
 
   @impl Crawly.Spider
@@ -22,7 +24,8 @@ defmodule Spider do
 	{:ok, document} = Floki.parse_document(response.body)
 
 	# Finally get data from the page with a mapped extractor
-	item = do_parse_item(host, document) |> Map.put(:url, response.request_url)
+#	item = do_parse_item(host, document) |> Map.put(:url, response.request_url)
+	item = %{title: "Hello spider"} |> Map.put(:url, response.request_url)
 
 	%{
 	  :requests => [],

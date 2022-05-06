@@ -48,17 +48,15 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :crawly,
-fetcher: {Crawly.Fetchers.Splash, [base_url: "http://localhost:8050/render.html", wait: 15]},
   closespider_timeout: 10,
   concurrent_requests_per_domain: 8,
   middlewares: [
-    Crawly.Middlewares.UniqueRequest,
-    {Crawly.Middlewares.UserAgent, user_agents: ["Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148"]}
+#    Crawly.Middlewares.UniqueRequest,
+    {Crawly.Middlewares.UserAgent, user_agents: ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"]}
   ],
   pipelines: [
-    {Crawly.Pipelines.Validate, fields: [:url]},
     Crawly.Pipelines.JSONEncoder,
-    {Crawly.Pipelines.WriteToFile, extension: "json", folder: "/tmp"},
+    {Crawly.Pipelines.WriteToFile, extension: "json", folder: "/Users/tomberman/Development/mnemosyne/logs"},
     {PipelineStoreDb}
   ]
 

@@ -34,7 +34,7 @@ defmodule MnemosyneWeb.SourceController do
 
   def run(conn, %{"id" => id}) do
     source = Records.get_source!(id)
-    IO.inspect(source)
+    ScrapeFromSource.run_source(source)
     conn
     |> put_flash(:info, "Creating snapshot.")
     |> redirect(to: Routes.source_path(conn, :show, source))
