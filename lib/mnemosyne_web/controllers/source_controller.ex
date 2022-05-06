@@ -6,6 +6,7 @@ defmodule MnemosyneWeb.SourceController do
 
   def index(conn, _params) do
     sources = Records.list_sources()
+    IO.inspect(sources)
     render(conn, "index.html", sources: sources)
   end
 
@@ -30,6 +31,15 @@ defmodule MnemosyneWeb.SourceController do
     source = Records.get_source!(id)
     render(conn, "show.html", source: source)
   end
+
+  def run(conn, %{"id" => id}) do
+    source = Records.get_source!(id)
+    IO.inspect(source)
+    conn
+    |> put_flash(:info, "Creating snapshot.")
+    |> redirect(to: Routes.source_path(conn, :show, source))
+  end
+
 
   def edit(conn, %{"id" => id}) do
     source = Records.get_source!(id)

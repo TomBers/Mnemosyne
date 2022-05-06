@@ -3,21 +3,28 @@
 <table>
   <thead>
     <tr>
+      <th>Company</th>
       <th>Url</th>
       <th>Type</th>
       <th>Page elements</th>
       <th>Active</th>
-
+      <th>Snapshots</th>
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for source <- @sources do %>
     <tr>
+      <td><%= source.company.name %></td>
       <td><%= source.url %></td>
       <td><%= source.type %></td>
-      <td><%= source.page_elements %></td>
+      <td>
+        <%= for element <- source.page_elements do %>
+          <%= element["element"] %> <br>
+        <% end %>
+      </td>
       <td><%= source.active %></td>
+      <td><%= length(source.snapshots) %></td>
 
       <td>
         <span><%= link "Show", to: Routes.source_path(@conn, :show, source) %></span>

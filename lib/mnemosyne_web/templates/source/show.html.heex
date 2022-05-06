@@ -14,7 +14,11 @@
 
   <li>
     <strong>Page elements:</strong>
-    <%= @source.page_elements %>
+    <ol>
+    <%= for element <- @source.page_elements do %>
+      <li><%= element["element"] %></li>
+    <% end %>
+    </ol>
   </li>
 
   <li>
@@ -22,7 +26,13 @@
     <%= @source.active %>
   </li>
 
+  <li>
+    <strong>Snapshots</strong>
+    <%= length(@source.snapshots) %>
+  </li>
+
 </ul>
 
+<span><%= link "Run", to: Routes.source_path(@conn, :run, @source) %></span> |
 <span><%= link "Edit", to: Routes.source_path(@conn, :edit, @source) %></span> |
 <span><%= link "Back", to: Routes.source_path(@conn, :index) %></span>
