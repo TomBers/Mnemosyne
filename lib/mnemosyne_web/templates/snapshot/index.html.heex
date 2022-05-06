@@ -1,0 +1,30 @@
+<h1>Listing Snapshots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Type</th>
+      <th>Response</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for snapshot <- @snapshots do %>
+    <tr>
+      <td><%= snapshot.url %></td>
+      <td><%= snapshot.type %></td>
+      <td><%= snapshot.response %></td>
+
+      <td>
+        <span><%= link "Show", to: Routes.snapshot_path(@conn, :show, snapshot) %></span>
+        <span><%= link "Edit", to: Routes.snapshot_path(@conn, :edit, snapshot) %></span>
+        <span><%= link "Delete", to: Routes.snapshot_path(@conn, :delete, snapshot), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Snapshot", to: Routes.snapshot_path(@conn, :new) %></span>

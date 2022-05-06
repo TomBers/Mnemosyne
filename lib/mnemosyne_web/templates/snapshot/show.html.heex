@@ -1,0 +1,23 @@
+<h1>Show Snapshot</h1>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @snapshot.url %>
+  </li>
+
+  <li>
+    <strong>Type:</strong>
+    <%= @snapshot.type %>
+  </li>
+
+  <li>
+    <strong>Response:</strong>
+    <%= @snapshot.response %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.snapshot_path(@conn, :edit, @snapshot) %></span> |
+<span><%= link "Back", to: Routes.snapshot_path(@conn, :index) %></span>

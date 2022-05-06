@@ -1,0 +1,8 @@
+mix phx.gen.html Accounts User users name:string age:integer
+
+mix phx.gen.html Orgs Company companies name:string
+
+mix phx.gen.html Records Source sources company_id:references:companies url:string type:string page_elements:array:map active:boolean
+
+mix phx.gen.html Records Snapshot snapshots source_id:references:sources url:string type:string response:map
+
