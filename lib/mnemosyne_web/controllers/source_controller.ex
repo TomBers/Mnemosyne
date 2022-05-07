@@ -32,6 +32,12 @@ defmodule MnemosyneWeb.SourceController do
     render(conn, "show.html", source: source)
   end
 
+  def snapshots(conn, %{"id" => id}) do
+    source = Records.get_source!(id)
+    render(conn, "snapshots_for_source.html", source: source)
+  end
+
+
   def run(conn, %{"id" => id}) do
     source = Records.get_source!(id)
     ScrapeFromSource.run_source(source)
