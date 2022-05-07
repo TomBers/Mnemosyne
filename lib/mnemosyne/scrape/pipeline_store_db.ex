@@ -1,15 +1,18 @@
 defmodule PipelineStoreDb do
+	alias Mnemosyne.Records
 	
 	def run(item, state, opts \\ []) do
-		IO.inspect("#{__MODULE__}")
-		IO.inspect(item)
+#		IO.inspect("#{__MODULE__}")
+#		IO.inspect(item)
 		# Use Jason.decode!(item) to get a map (it is JSON encoded)
-		
-		# TODO write jobs to the DB
-		
-		IO.inspect(state)
-		IO.inspect(opts)	
-		
+
+		{source, item} = Map.pop(item, :source)
+		{url, item} = Map.pop(item, :url)
+
+		new_snapshot = %{url: url, type: "WebScraper", response: item, source_id: source.id}
+
+		Records.create_snapshot(new_snapshot)
+
 		# To Save HTML
 		# response = Crawly.fetch("https://www.autotrader.co.uk/cars/leasing/product/202110278946696")
 		# File.write(“/tmp/nissan_splash.html”, response.body)

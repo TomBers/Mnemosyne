@@ -1,8 +1,8 @@
 defmodule ScrapeFromSource do
 
   def run_source(source) do
-    IO.inspect("#{__MODULE__}")
-    IO.inspect(source.url)
+#    IO.inspect("#{__MODULE__}")
+#    IO.inspect(source.url)
     urls = [
       source.url
     ]

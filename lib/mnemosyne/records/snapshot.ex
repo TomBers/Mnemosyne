@@ -16,7 +16,7 @@ defmodule Mnemosyne.Records.Snapshot do
   @doc false
   def changeset(snapshot, attrs) do
     snapshot
-    |> cast(attrs, [:url, :type, :response])
-    |> validate_required([:url, :type, :response])
+    |> cast(attrs, [:url, :type, :response, :source_id])
+    |> validate_required([:url, :type, :response, :source_id])
   end
 end

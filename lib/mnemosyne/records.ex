@@ -37,6 +37,8 @@ defmodule Mnemosyne.Records do
   """
   def get_source!(id), do: Repo.get!(Source, id) |> Repo.preload(:company) |> Repo.preload(:snapshots)
 
+  def get_source_by_url!(url), do: Repo.get_by!(Source, url: url)
+
   @doc """
   Creates a source.
 
