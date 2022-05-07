@@ -7,7 +7,7 @@ defmodule ScrapeFromSource do
       source.url
     ]
 
-    Crawly.Engine.start_spider(Spider, urls: urls, crawl_id: source.id, page_elements: source.page_elements)
+    Crawly.Engine.start_spider(Spider, urls: urls, crawl_id: source.id)
 
   end
 

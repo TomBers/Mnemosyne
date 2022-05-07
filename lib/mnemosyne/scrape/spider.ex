@@ -16,9 +16,7 @@ defmodule Spider do
 
   @impl Crawly.Spider
   def parse_item(response) do
-	# First of all lets find a host, as it will allow us to match the parsing rule
-	#	parsed_uri = URI.parse(response.request_url)
-
+#		TODO - enfore URL is unique at the Db level
 	source = Records.get_source_by_url!(response.request_url)
 
 	{:ok, document} = Floki.parse_document(response.body)

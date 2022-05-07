@@ -15,7 +15,7 @@
     <tr>
       <td><%= snapshot.url %></td>
       <td><%= snapshot.type %></td>
-      <td><%= snapshot.response %></td>
+      <td><%= Jason.encode!(snapshot.response) %></td>
 
       <td>
         <span><%= link "Show", to: Routes.snapshot_path(@conn, :show, snapshot) %></span>

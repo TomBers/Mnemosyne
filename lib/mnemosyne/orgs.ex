@@ -18,7 +18,7 @@ defmodule Mnemosyne.Orgs do
 
   """
   def list_companies do
-    Repo.all(Company)
+    Repo.all(Company) |> Repo.preload(:sources)
   end
 
   @doc """
