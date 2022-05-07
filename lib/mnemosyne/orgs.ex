@@ -35,7 +35,7 @@ defmodule Mnemosyne.Orgs do
       ** (Ecto.NoResultsError)
 
   """
-  def get_company!(id), do: Repo.get!(Company, id)
+  def get_company!(id), do: Repo.get!(Company, id) |> Repo.preload(sources: [:snapshots])
 
   @doc """
   Creates a company.

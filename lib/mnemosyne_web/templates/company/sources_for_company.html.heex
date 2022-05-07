@@ -1,0 +1,29 @@
+<h1>Listing Sources for <%= @company.name %></h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Url</th>
+        <th>Type</th>
+        <th>Page elements</th>
+        <th>Snapshots</th>
+        <th>Last snapshot</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= for source <- @company.sources do %>
+    <tr>
+        <td><%= source.url %></td>
+        <td><%= source.type %></td>
+        <td>
+            <%= for element <- source.page_elements do %>
+            <%= element["element"] %> <br>
+            <% end %>
+        </td>
+        <td><%= length(source.snapshots) %></td>
+        <td><%= List.last(source.snapshots) |> Map.get(:updated_at) %></td>
+
+    </tr>
+    <% end %>
+    </tbody>
+</table>

@@ -31,6 +31,11 @@ defmodule MnemosyneWeb.CompanyController do
     render(conn, "show.html", company: company)
   end
 
+  def sources(conn, %{"id" => id}) do
+    company = Orgs.get_company!(id)
+    render(conn, "sources_for_company.html", company: company)
+  end
+
   def edit(conn, %{"id" => id}) do
     company = Orgs.get_company!(id)
     changeset = Orgs.change_company(company)
