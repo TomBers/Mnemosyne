@@ -15,7 +15,8 @@ defmodule Mnemosyne.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Mnemosyne.PubSub},
       # Start the Endpoint (http/https)
-      MnemosyneWeb.Endpoint
+      MnemosyneWeb.Endpoint,
+      Mnemosyne.Scheduler
       # Start a worker by calling: Mnemosyne.Worker.start_link(arg)
       # {Mnemosyne.Worker, arg}
     ]

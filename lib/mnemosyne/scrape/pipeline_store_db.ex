@@ -1,7 +1,7 @@
 defmodule PipelineStoreDb do
 	alias Mnemosyne.Records
 	
-	def run(item, state, opts \\ []) do
+	def run(item, state, _opts \\ []) do
 #		IO.inspect("#{__MODULE__}")
 #		IO.inspect(item)
 		# Use Jason.decode!(item) to get a map (it is JSON encoded)

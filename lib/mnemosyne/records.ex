@@ -21,6 +21,10 @@ defmodule Mnemosyne.Records do
     Repo.all(Source) |> Repo.preload(:company) |> Repo.preload(:snapshots)
   end
 
+  def all_sources do
+    Repo.all(Source)
+  end
+
   @doc """
   Gets a single source.
 
