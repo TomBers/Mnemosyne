@@ -14,7 +14,7 @@
 
   <li>
     <strong>Response:</strong>
-    <%= @snapshot.response %>
+    <%= Jason.encode!(@snapshot.response) %>
   </li>
 
 </ul>

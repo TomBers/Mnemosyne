@@ -18,7 +18,7 @@ defmodule Mnemosyne.Records do
 
   """
   def list_sources do
-    Repo.all(Source)
+    Repo.all(Source) |> Repo.preload(:company) |> Repo.preload(:snapshots)
   end
 
   @doc """
@@ -35,7 +35,9 @@ defmodule Mnemosyne.Records do
       ** (Ecto.NoResultsError)
 
   """
-  def get_source!(id), do: Repo.get!(Source, id)
+  def get_source!(id), do: Repo.get!(Source, id) |> Repo.preload(:company) |> Repo.preload(:snapshots)
+
+  def get_source_by_url!(url), do: Repo.get_by!(Source, url: url)
 
   @doc """
   Creates a source.

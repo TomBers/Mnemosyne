@@ -1,0 +1,23 @@
+<h1>Listing Snapshots for <%= @source.company.name %> (<%= link "Source", to: Routes.company_path(@conn, :sources, @source) %>)</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Url</th>
+        <th>Type</th>
+        <th>Response</th>
+        <th>Date</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= for snapshot <- Enum.reverse(@source.snapshots) do %>
+    <tr>
+        <td><%= snapshot.url %></td>
+        <td><%= snapshot.type %></td>
+        <td><%= Jason.encode!(snapshot.response) %></td>
+        <td><%= snapshot.updated_at %></td>
+    </tr>
+    <% end %>
+    </tbody>
+</table>

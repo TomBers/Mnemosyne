@@ -1,0 +1,31 @@
+<h1>Listing Sources for <%= link "#{@company.name}", to: Routes.company_path(@conn, :index) %></h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Url</th>
+        <th>Type</th>
+        <th>Page elements</th>
+        <th>Snapshots</th>
+        <th>Last snapshot</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= for source <- @company.sources do %>
+    <tr>
+        <td><%= source.url %></td>
+        <td><%= source.type %></td>
+        <td>
+            <%= for element <- source.page_elements do %>
+            <%= element["element"] %> <br>
+            <% end %>
+        </td>
+        <td><%= link "#{length(source.snapshots)}", to: Routes.source_path(@conn, :snapshots, source)  %></td>
+        <td><%= last_snapshot(source.snapshots) %></td>
+        <td><%= link "Run", to: Routes.source_path(@conn, :run, source) %></td>
+
+    </tr>
+    <% end %>
+    </tbody>
+</table>

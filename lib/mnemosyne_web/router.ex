@@ -21,6 +21,10 @@ defmodule MnemosyneWeb.Router do
     resources "/snapshots", SnapshotController
 
     get "/", PageController, :index
+
+    get "/sources/run/:id", SourceController, :run
+    get "/sources/for/:id", CompanyController, :sources
+    get "/snapshots/for/:id", SourceController, :snapshots
   end
 
   # Other scopes may use custom stacks.

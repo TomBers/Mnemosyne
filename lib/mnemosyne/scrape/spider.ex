@@ -1,6 +1,8 @@
 defmodule Spider do
   use Crawly.Spider
 
+	alias Mnemosyne.Records
+
   # This is not going to be used, so we're ignoring it.
   @impl Crawly.Spider
   def base_url() do
@@ -9,20 +11,23 @@ defmodule Spider do
 
   @impl Crawly.Spider
   def init(options) do
-	# Reading start urls from options passed from the main module
 	[start_urls: Keyword.get(options, :urls)]
   end
 
   @impl Crawly.Spider
   def parse_item(response) do
-	# First of all lets find a host, as it will allow us to match the parsing rule
-	parsed_uri = URI.parse(response.request_url)
-	host = parsed_uri.host
+#		TODO - enfore URL is unique at the Db level
+	source = Records.get_source_by_url!(response.request_url)
 
 	{:ok, document} = Floki.parse_document(response.body)
 
-	# Finally get data from the page with a mapped extractor
-	item = do_parse_item(host, document) |> Map.put(:url, response.request_url)
+	item =
+		source.page_elements
+		|> Enum.flat_map(fn(%{"element" => ele, "name" => name}) -> find_item(document, name, ele) end)
+		|> Map.new()
+		|> Map.put(:url, response.request_url)
+		|> Map.put(:source, source)
+
 
 	%{
 	  :requests => [],
@@ -31,24 +36,13 @@ defmodule Spider do
   end
 
   # Item parse for hemnet.se
-  defp do_parse_item("www.hemnet.se", document) do
-	name =
+  defp find_item(document, name, ele) do
+	txt =
 	  document
-	  |> Floki.find("h1.qa-property-heading")
+	  |> Floki.find(ele)
 	  |> Floki.text()
 
-
-	%{name: name}
+	Map.put(%{}, String.to_atom(name), txt)
   end
 
-  # Item parse for booli.se
-  defp do_parse_item("www.booli.se", document) do
-	name =
-	  document
-	  |> Floki.find("h1")
-	  |> Floki.text()
-
-
-	%{name: name}
-  end
 end

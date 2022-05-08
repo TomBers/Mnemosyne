@@ -49,7 +49,8 @@ defmodule Mnemosyne.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:crawly, "~> 0.13.0"}
+      {:crawly, "~> 0.13.0"},
+      {:httpoison, "~> 1.0"}
     ]
   end
 
