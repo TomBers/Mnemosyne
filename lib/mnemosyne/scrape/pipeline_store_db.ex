@@ -9,7 +9,8 @@ defmodule PipelineStoreDb do
 		{source, item} = Map.pop(item, :source)
 		{url, item} = Map.pop(item, :url)
 
-		new_snapshot = %{url: url, type: "WebScraper", response: item, source_id: source.id}
+		response = Crawly.fetch(url)
+		new_snapshot = %{url: url, type: "WebScraper", response: item, source_id: source.id, html: response.body}
 
 		Records.create_snapshot(new_snapshot)
 
