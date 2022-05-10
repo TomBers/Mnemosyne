@@ -4,8 +4,10 @@ defmodule Mnemosyne.Scheduler do
   alias Mnemosyne.Records
 
   def run_every_min do
-    sources = Records.all_sources()
-    ScrapeFromSource.run_sources(sources)
+#    TODO - split sources into Scraper and API
+#    ScrapeFromSource.run_sources(Records.all_scraper_sources())
+    ApiFromSource.run_sources(Records.all_api_sources())
+
   end
 
 end
