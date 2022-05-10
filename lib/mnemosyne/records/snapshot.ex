@@ -8,6 +8,7 @@ defmodule Mnemosyne.Records.Snapshot do
     field :response, :map
     field :type, :string
     field :url, :string
+    field :html, :string
     belongs_to :source, Source
 
     timestamps()
@@ -16,7 +17,7 @@ defmodule Mnemosyne.Records.Snapshot do
   @doc false
   def changeset(snapshot, attrs) do
     snapshot
-    |> cast(attrs, [:url, :type, :response, :source_id])
-    |> validate_required([:url, :type, :response, :source_id])
+    |> cast(attrs, [:url, :type, :response, :source_id, :html])
+    |> validate_required([:url, :type, :response, :source_id, :html])
   end
 end

@@ -35,7 +35,6 @@ defmodule Spider do
 	}
   end
 
-  # Item parse for hemnet.se
   defp find_item(document, name, ele) do
 	txt =
 	  document

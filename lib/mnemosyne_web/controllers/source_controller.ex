@@ -6,7 +6,6 @@ defmodule MnemosyneWeb.SourceController do
 
   def index(conn, _params) do
     sources = Records.list_sources()
-    IO.inspect(sources)
     render(conn, "index.html", sources: sources)
   end
 
