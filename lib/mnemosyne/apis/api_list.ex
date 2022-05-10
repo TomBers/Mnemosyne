@@ -1,7 +1,10 @@
 defmodule ApiList do
 
   def test_simple do
-    %{test: "simple"}
+    case HTTPoison.get("https://api.chucknorris.io/jokes/random") do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Jason.decode!(body)
+      _ -> :error
+    end
   end
 
 end
