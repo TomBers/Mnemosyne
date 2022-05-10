@@ -19,7 +19,7 @@
       <td><%= source.url %></td>
       <td><%= source.type %></td>
       <td>
-        <%= for element <- source.page_elements do %>
+        <%= for element <- get_page_elements(source.page_elements) do %>
           <%= element["element"] %> <br>
         <% end %>
       </td>
