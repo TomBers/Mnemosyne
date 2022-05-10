@@ -9,9 +9,8 @@ defmodule ApiFromSource do
   end
 
   def call_module_from_source(source) do
-#    This is a little Ugly!
-    module_name = String.to_atom("Elixir.#{source.url}")
-    apply(module_name, :run, [source])
+    method = String.to_atom(source.url)
+    {apply(ApiList, method, []), source}
   end
 
   def store_snapshot(response, source) do

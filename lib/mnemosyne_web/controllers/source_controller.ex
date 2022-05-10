@@ -39,7 +39,12 @@ defmodule MnemosyneWeb.SourceController do
 
   def run(conn, %{"id" => id}) do
     source = Records.get_source!(id)
-    ScrapeFromSource.run_source(source)
+
+    case source.type do
+      "WebScraper" -> ScrapeFromSource.run_source(source)
+      "API" -> ApiFromSource.run_sources([source])
+    end
+
     conn
     |> put_flash(:info, "Creating snapshot.")
     |> redirect(to: Routes.source_path(conn, :show, source))

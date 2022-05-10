@@ -1,4 +1,4 @@
-<h1>Listing Snapshots for <%= @source.company.name %> (<%= link "Source", to: Routes.company_path(@conn, :sources, @source) %>)</h1>
+<h1>Listing Snapshots for <%= @source.company.name %> (<%= link "Source", to: Routes.company_path(@conn, :sources, @source.company) %>)</h1>
 
 <table>
     <thead>
