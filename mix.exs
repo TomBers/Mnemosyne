@@ -51,7 +51,8 @@ defmodule Mnemosyne.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:crawly, "~> 0.13.0"},
       {:httpoison, "~> 1.0"},
-      {:quantum, "~> 3.0"}
+      {:quantum, "~> 3.0"},
+      {:flow, "~> 1.0"}
     ]
   end
 

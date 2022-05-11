@@ -64,6 +64,7 @@
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/crontab" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/gen_stage" />
       <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/quantum" />
+      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/flow" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="phoenix" level="project" />
@@ -143,5 +144,6 @@
     <orderEntry type="library" name="crontab" level="project" />
     <orderEntry type="library" name="gen_stage" level="project" />
     <orderEntry type="library" name="tzdata" level="project" />
+    <orderEntry type="library" name="flow" level="project" />
   </component>
 </module>
