@@ -13,4 +13,13 @@ defmodule MnemosyneWeb.CompanyView do
   defp get_date(snapshot) do
     Map.get(snapshot, :updated_at)
   end
+
+  def get_page_elements(nil) do
+    []
+  end
+
+  def get_page_elements(elements) do
+    elements
+  end
+
 end

@@ -15,7 +15,7 @@
   <li>
     <strong>Page elements:</strong>
     <ol>
-    <%= for element <- @source.page_elements do %>
+    <%= for element <- get_page_elements(@source.page_elements) do %>
       <li><%= element["element"] %></li>
     <% end %>
     </ol>

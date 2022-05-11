@@ -25,6 +25,16 @@ defmodule Mnemosyne.Records do
     Repo.all(Source)
   end
 
+  def all_scraper_sources do
+    query = from s in Source, where: s.type == "WebScraper"
+    Repo.all(query)
+  end
+
+  def all_api_sources do
+    query = from s in Source, where: s.type == "API"
+    Repo.all(query)
+  end
+
   @doc """
   Gets a single source.
 
