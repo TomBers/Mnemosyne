@@ -10,8 +10,11 @@
   <%= error_tag f, :url %>
 
   <%= label f, :type %>
-  <%= text_input f, :type %>
+  <%= select f, :type, ["WebScraper": "WebScraper", "API": "API"] %>
   <%= error_tag f, :type %>
+
+  <%= label f, :page_elements %>
+  <%= array_input f, :page_elements %>
 
   <%= label f, :active %>
   <%= checkbox f, :active %>
