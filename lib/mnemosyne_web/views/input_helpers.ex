@@ -2,15 +2,14 @@ defmodule MnemosyneWeb.InputHelpers do
   use Phoenix.HTML
   def array_input(form, field) do
     values = Phoenix.HTML.Form.input_value(form, field) || [""]
+    values = values ++ [%{"element" => "", "name" => ""}]
     id = Phoenix.HTML.Form.input_id(form,field)
     type = Phoenix.HTML.Form.input_type(form, field)
     content_tag :ol, id: container_id(id), class: "input_container", data: [index: Enum.count(values) ] do
       values
       |> Enum.with_index()
       |> Enum.map(fn {vals, index} ->
-
         form_elements(form, field, vals, index)
-
       end)
     end
   end

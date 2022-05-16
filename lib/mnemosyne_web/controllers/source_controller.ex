@@ -60,7 +60,7 @@ defmodule MnemosyneWeb.SourceController do
   def update(conn, %{"id" => id, "source" => source_params}) do
     source = Records.get_source!(id)
 
-    sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) end)
+    sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
 
     case Records.update_source(source, sp) do
       {:ok, source} ->
