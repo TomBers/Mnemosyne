@@ -7,26 +7,32 @@ defmodule MnemosyneWeb.InputHelpers do
     content_tag :ol, id: container_id(id), class: "input_container", data: [index: Enum.count(values) ] do
       values
       |> Enum.with_index()
-      |> Enum.map(fn {%{"name" => name, "element" => element}, index} ->
+      |> Enum.map(fn {vals, index} ->
 
-        form_elements(form, field, [name, element], index)
+        form_elements(form, field, vals, index)
 
       end)
     end
   end
 
-  defp form_elements(form, field, values, index) do
+  defp form_elements(form, field, %{"name" => name, "element" => element}, index) do
     type = Phoenix.HTML.Form.input_type(form, field)
     id = Phoenix.HTML.Form.input_id(form,field)
 
-    input_opts =
-      values
-      |> Enum.map(fn value -> [
-        name: new_field_name(form, field, value),
-        value: value,
-        id: id <> "_#{index}_#{value}",
+    input_opts = [
+      [
+        name: new_field_name(form, field, index, "name"),
+        value: name,
+        id: id <> "_#{index}_name",
         class: "form-control"
-      ]  end)
+        ],
+      [
+        name: new_field_name(form, field, index, "element"),
+        value: element,
+        id: id <> "_#{index}_element",
+        class: "form-control"
+      ]
+      ]
 
     content_tag :li do
       input_opts
@@ -37,7 +43,7 @@ defmodule MnemosyneWeb.InputHelpers do
 
   defp container_id(id), do: id <> "_container"
 
-  defp new_field_name(form, field, val) do
-    Phoenix.HTML.Form.input_name(form, field) <> "[#{val}]"
+  defp new_field_name(form, field, id, val) do
+    Phoenix.HTML.Form.input_name(form, field) <> "[#{id}]" <> "[#{val}]"
   end
 end

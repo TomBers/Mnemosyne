@@ -60,7 +60,9 @@ defmodule MnemosyneWeb.SourceController do
   def update(conn, %{"id" => id, "source" => source_params}) do
     source = Records.get_source!(id)
 
-    case Records.update_source(source, source_params) do
+    sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) end)
+
+    case Records.update_source(source, sp) do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source updated successfully.")
