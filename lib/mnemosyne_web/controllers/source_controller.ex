@@ -15,13 +15,11 @@ defmodule MnemosyneWeb.SourceController do
   end
 
   def create(conn, %{"source" => source_params}) do
-#    TODO - split put in to its own function
-    sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
-    case Records.create_source(sp) do
+    case Records.create_source(deal_with_page_elements(source_params)) do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source created successfully.")
-        |> redirect(to: Routes.company_path(conn, :sources, Map.get(sp, "company_id")))
+        |> redirect(to: Routes.company_path(conn, :sources, Map.get(source_params, "company_id")))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -62,14 +60,11 @@ defmodule MnemosyneWeb.SourceController do
   def update(conn, %{"id" => id, "source" => source_params}) do
     source = Records.get_source!(id)
 
-    #    TODO - split put in to its own function
-    sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
-
-    case Records.update_source(source, sp) do
+    case Records.update_source(source, deal_with_page_elements(source_params)) do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source updated successfully.")
-        |> redirect(to: Routes.company_path(conn, :sources, Map.get(sp, "company_id")))
+        |> redirect(to: Routes.company_path(conn, :sources, Map.get(source_params, "company_id")))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", source: source, changeset: changeset)
@@ -84,4 +79,10 @@ defmodule MnemosyneWeb.SourceController do
     |> put_flash(:info, "Source deleted successfully.")
     |> redirect(to: Routes.source_path(conn, :index))
   end
+
+  defp deal_with_page_elements(source_params) do
+    source_params |>
+    Map.update!("page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
+  end
+
 end
