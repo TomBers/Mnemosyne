@@ -21,7 +21,7 @@ defmodule MnemosyneWeb.SourceController do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source created successfully.")
-        |> redirect(to: Routes.source_path(conn, :show, source))
+        |> redirect(to: Routes.company_path(conn, :sources, Map.get(sp, "company_id")))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -69,7 +69,7 @@ defmodule MnemosyneWeb.SourceController do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source updated successfully.")
-        |> redirect(to: Routes.source_path(conn, :show, source))
+        |> redirect(to: Routes.company_path(conn, :sources, Map.get(sp, "company_id")))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", source: source, changeset: changeset)
