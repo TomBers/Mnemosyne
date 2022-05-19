@@ -11,7 +11,7 @@ defmodule MnemosyneWeb.SourceController do
 
   def new(conn, %{"company_id" => company_id}) do
     changeset = Records.change_source(%Source{company_id: company_id})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html", changeset: changeset, company_id: company_id)
   end
 
   def create(conn, %{"source" => source_params}) do
