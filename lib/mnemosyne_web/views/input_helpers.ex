@@ -40,6 +40,10 @@ defmodule MnemosyneWeb.InputHelpers do
     end
   end
 
+  defp form_elements(form, field, empty_opts, index) do
+    []
+  end
+
   defp container_id(id), do: id <> "_container"
 
   defp new_field_name(form, field, id, val) do

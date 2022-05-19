@@ -9,13 +9,15 @@ defmodule MnemosyneWeb.SourceController do
     render(conn, "index.html", sources: sources)
   end
 
-  def new(conn, _params) do
-    changeset = Records.change_source(%Source{})
+  def new(conn, %{"company_id" => company_id}) do
+    changeset = Records.change_source(%Source{company_id: company_id})
     render(conn, "new.html", changeset: changeset)
   end
 
   def create(conn, %{"source" => source_params}) do
-    case Records.create_source(source_params) do
+#    TODO - split put in to its own function
+    sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
+    case Records.create_source(sp) do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source created successfully.")
@@ -60,6 +62,7 @@ defmodule MnemosyneWeb.SourceController do
   def update(conn, %{"id" => id, "source" => source_params}) do
     source = Records.get_source!(id)
 
+    #    TODO - split put in to its own function
     sp = Map.update!(source_params, "page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
 
     case Records.update_source(source, sp) do

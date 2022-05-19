@@ -18,7 +18,7 @@
         <td><%= source.type %></td>
         <td>
             <%= for element <- get_page_elements(source.page_elements) do %>
-            <%= element["element"] %> <br>
+                <%= element["name"] %> => <%= element["element"] %><br>
             <% end %>
         </td>
         <td><%= link "#{length(source.snapshots)}", to: Routes.source_path(@conn, :snapshots, source)  %></td>
@@ -29,3 +29,5 @@
     <% end %>
     </tbody>
 </table>
+
+<%= link "New", to: Routes.source_path(@conn, :new, @company.id) %>
