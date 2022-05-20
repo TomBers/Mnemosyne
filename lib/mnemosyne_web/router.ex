@@ -29,9 +29,12 @@ defmodule MnemosyneWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MnemosyneWeb do
-  #   pipe_through :api
-  # end
+   scope "/api", MnemosyneWeb do
+     pipe_through :api
+
+     get "/test/:id", PageController, :api_test
+
+   end
 
   # Enables LiveDashboard only for development
   #

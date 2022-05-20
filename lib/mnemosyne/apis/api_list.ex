@@ -7,4 +7,11 @@ defmodule ApiList do
     end
   end
 
+  def test_localhost(url) do
+    case HTTPoison.get(url) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> Jason.decode!(body)
+      _ -> :error
+    end
+  end
+
 end

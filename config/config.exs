@@ -47,18 +47,18 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :crawly,
-  closespider_timeout: 10,
-  concurrent_requests_per_domain: 8,
-  middlewares: [
-#    Crawly.Middlewares.UniqueRequest,
-    {Crawly.Middlewares.UserAgent, user_agents: ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"]}
-  ],
-  pipelines: [
-    {PipelineStoreDb},
-    Crawly.Pipelines.JSONEncoder,
-    {Crawly.Pipelines.WriteToFile, extension: "json", folder: "/Users/tomberman/Development/mnemosyne/logs"},
-  ]
+#config :crawly,
+#  closespider_timeout: 10,
+#  concurrent_requests_per_domain: 8,
+#  middlewares: [
+##    Crawly.Middlewares.UniqueRequest,
+#    {Crawly.Middlewares.UserAgent, user_agents: ["Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"]}
+#  ],
+#  pipelines: [
+#    {PipelineStoreDb},
+#    Crawly.Pipelines.JSONEncoder,
+#    {Crawly.Pipelines.WriteToFile, extension: "json", folder: "/Users/tomberman/Development/mnemosyne/logs"},
+#  ]
 
 #  TODO - reenable the crawling
 config :mnemosyne, Mnemosyne.Scheduler,
