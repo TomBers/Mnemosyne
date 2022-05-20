@@ -22,6 +22,7 @@ defmodule MnemosyneWeb.Router do
 
     get "/", PageController, :index
 
+    get "/sources/new/:company_id", SourceController, :new
     get "/sources/run/:id", SourceController, :run
     get "/sources/for/:id", CompanyController, :sources
     get "/snapshots/for/:id", SourceController, :snapshots

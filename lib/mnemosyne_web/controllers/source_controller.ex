@@ -9,17 +9,17 @@ defmodule MnemosyneWeb.SourceController do
     render(conn, "index.html", sources: sources)
   end
 
-  def new(conn, _params) do
-    changeset = Records.change_source(%Source{})
-    render(conn, "new.html", changeset: changeset)
+  def new(conn, %{"company_id" => company_id}) do
+    changeset = Records.change_source(%Source{company_id: company_id})
+    render(conn, "new.html", changeset: changeset, company_id: company_id)
   end
 
   def create(conn, %{"source" => source_params}) do
-    case Records.create_source(source_params) do
+    case Records.create_source(deal_with_page_elements(source_params)) do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source created successfully.")
-        |> redirect(to: Routes.source_path(conn, :show, source))
+        |> redirect(to: Routes.company_path(conn, :sources, Map.get(source_params, "company_id")))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -60,11 +60,11 @@ defmodule MnemosyneWeb.SourceController do
   def update(conn, %{"id" => id, "source" => source_params}) do
     source = Records.get_source!(id)
 
-    case Records.update_source(source, source_params) do
+    case Records.update_source(source, deal_with_page_elements(source_params)) do
       {:ok, source} ->
         conn
         |> put_flash(:info, "Source updated successfully.")
-        |> redirect(to: Routes.source_path(conn, :show, source))
+        |> redirect(to: Routes.company_path(conn, :sources, Map.get(source_params, "company_id")))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", source: source, changeset: changeset)
@@ -79,4 +79,10 @@ defmodule MnemosyneWeb.SourceController do
     |> put_flash(:info, "Source deleted successfully.")
     |> redirect(to: Routes.source_path(conn, :index))
   end
+
+  defp deal_with_page_elements(source_params) do
+    source_params |>
+    Map.update!("page_elements", fn pe -> Enum.map(pe, fn {k, v} -> v end) |> Enum.filter(fn %{"name" => name, "element" => element} -> name != "" and element != "" end) end)
+  end
+
 end

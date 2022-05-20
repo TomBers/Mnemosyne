@@ -21,7 +21,7 @@ defmodule Mnemosyne.Records.Source do
   @doc false
   def changeset(source, attrs) do
     source
-    |> cast(attrs, [:url, :type, :page_elements, :active])
-    |> validate_required([:url, :type, :page_elements, :active])
+    |> cast(attrs, [:url, :type, :page_elements, :active, :company_id])
+    |> validate_required([:url, :type, :page_elements, :active, :company_id])
   end
 end

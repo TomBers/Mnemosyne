@@ -20,7 +20,7 @@
       <td><%= source.type %></td>
       <td>
         <%= for element <- get_page_elements(source.page_elements) do %>
-          <%= element["element"] %> <br>
+          <%= element["name"] %> => <%= element["element"] %> <br>
         <% end %>
       </td>
       <td><%= source.active %></td>
