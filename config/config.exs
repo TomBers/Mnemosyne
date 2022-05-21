@@ -60,7 +60,6 @@ config :crawly,
     {Crawly.Pipelines.WriteToFile, extension: "json", folder: "/Users/tomberman/Development/mnemosyne/logs"},
   ]
 
-#  TODO - reenable the crawling
 config :mnemosyne, Mnemosyne.Scheduler,
   jobs: [
 #    {"* * * * *",      {Mnemosyne.Scheduler, :run_every_min, []}},

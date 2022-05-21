@@ -4,18 +4,15 @@ defmodule ApiFromSource do
 
   def run_sources(sources) do
     sources
-    |> Enum.map(fn source -> call_module_from_source(source) end)
-    |> Enum.map(fn {response, source} -> store_snapshot(response, source) end)
+    |> Flow.from_enumerable(max_demand: 4)
+    |> Flow.map(fn source -> Task.start_link(fn -> make_and_store_request(source) end) end)
+    |> Enum.to_list
   end
 
-  def call_module_from_source(source) do
+  def make_and_store_request(source) do
     method = String.to_atom(source.url)
-    {apply(ApiList, method, []), source}
-  end
-
-  def store_snapshot(response, source) do
+    response = apply(ApiList, method, [])
     Records.create_snapshot(%{url: source.url, type: "API", response: response, source_id: source.id, html: Jason.encode!(response)})
   end
-
 
 end
