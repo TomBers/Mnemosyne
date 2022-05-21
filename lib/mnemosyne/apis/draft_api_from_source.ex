@@ -1,4 +1,5 @@
-defmodule ApiFromSource do
+defmodule DraftApiFromSource do
+#  An experimental playground using Flow
 
   alias Mnemosyne.Records
 
